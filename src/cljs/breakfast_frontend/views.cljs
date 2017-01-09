@@ -11,7 +11,8 @@
   (let [loading?    (re-frame/subscribe [:loading?])
         rota        (re-frame/subscribe [:rota])
         dish        (re-frame/subscribe [:dish])
-        past-dishes (re-frame/subscribe [:past-dishes])]
+        past-dishes (re-frame/subscribe [:past-dishes])
+        likes       (re-frame/subscribe [:likes])]
     (fn []
         (if @loading?
           [loading-page]
@@ -22,7 +23,11 @@
             [:ul {:style {:list-style "none" :padding-left "0"}}
                 (for [[i dish] (map-indexed vector @past-dishes)]
                      ^{:key [i dish]}
-                     [:li {:style {:margin "15px 0"}} [:strong dish]])]]
+                     [:li {:style {:margin "15px 0"}} [:strong dish]
+                      [:br]
+                      [:strong @likes]
+                      [:br]
+                      [:button.btn.btn-primary {:on-click #(re-frame/dispatch [:update-likes])}]])]]
            [:div.col-md-4
             (let [[{:keys [host date]} & remaining] @rota]
               [:div

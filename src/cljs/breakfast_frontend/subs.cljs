@@ -26,3 +26,8 @@
  :past-dishes
  (fn [db]
    (:past-dishes db)))
+
+(re-frame/reg-sub
+ :likes
+ (fn [db]
+   (:likes db)))
